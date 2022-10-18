@@ -1,6 +1,6 @@
 import startup
 import os
-import framework.main as fw
 
 class start:
+    startJSON = startup.Data_Collector.getStartupJSON()
     
