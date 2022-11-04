@@ -1,5 +1,5 @@
 {
-    "version": 0.1,
-    "branch-name": "closed-alpha",
-    "shortened-branch-name": "c-a"
+    "version": "v1",
+    "branch-name": "development-alpha",
+    "shortened-branch-name": "d-a"
 }
