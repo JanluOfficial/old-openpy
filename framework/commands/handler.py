@@ -5,7 +5,18 @@ import framework.commands.OpenPyCommands as OpenPyCMDs
 class handle:
     def command(cmd: str):
         if cmd == "develop":
-            jsonFile = os.getcwd() + f'\\apps\\developmentEnviorment\\app.json'
-            appInfoFile = open(jsonFile, 'r')
+            jsonPath = os.getcwd() + f'\\apps\\developmentEnviorment\\app.json'
+            appInfoFile = open(jsonPath, 'r')
             jsonFile = json.load(appInfoFile)
             OpenPyCMDs.Apps.launch(os.getcwd() + f'\\apps\\developmentEnviorment\\{jsonFile["main-file"]}')
+
+        elif cmd.startswith('run-app '):
+            apptorun = cmd.lstrip('run-app ')
+            print(apptorun)
+            jsonPath = os.getcwd() + '\\apps\\' + apptorun + '\\app.json'
+            appInfoFile = open(jsonPath, 'r')
+            jsonFile = json.load(appInfoFile)
+            OpenPyCMDs.Apps.launch(os.getcwd() + f'\\apps\\{apptorun}\\{jsonFile["main-file"]}')
+
+        elif ["quit", "close", "exit"] in cmd:
+            quit()
