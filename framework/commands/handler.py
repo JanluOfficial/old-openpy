@@ -18,5 +18,5 @@ class handle:
             jsonFile = json.load(appInfoFile)
             OpenPyCMDs.Apps.launch(os.getcwd() + f'\\apps\\{apptorun}\\{jsonFile["main-file"]}')
 
-        elif ["quit", "close", "exit"] in cmd:
+        elif cmd == "exit" or cmd == "quit":
             quit()
