@@ -28,13 +28,12 @@ if value == "1":
     file_name = Prompt.ask("Main File Name", default=f"{name}.py")
     if not file_name.endswith('.py'):
         file_name += '.py'
-    sleep(1)
     con.clear()
     console.print(f'[bold][yellow]Open[/yellow][blue]Py[/blue][/bold] [dim]Development Enviorment[/dim]')
     panel_group = Group(
-    console.print(f"App Name:       {name}"),
-    console.print(f"Description:    {description}"),
-    console.print(f'Main File Name: {file_name}')
+    Panel(f"[white]App Name:       {name}[/white]", style='red'),
+    Panel(f"[white]Description:    {description}[/white]", style='purple'),
+    Panel(f'[white]Main File Name: {file_name}[/white]',style='magenta')
     )
     console.print(Panel(panel_group))
     confirmation = Prompt.ask("Confirm?", default="N", choices=['Y', 'N'])
@@ -54,7 +53,6 @@ if value == "1":
                 'from rich.panel import Panel\n',
                 'import json\n',
                 '\n',
-                'name = json.loads(open("app.json", "r").read())\n',
                 'console = Console()\n',
                 'console.print(f"Welcome to your new [yellow]Open[/yellow][blue]Py[/blue] Application")'
             ]

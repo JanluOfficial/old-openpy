@@ -14,12 +14,20 @@ class handle:
             OpenPyCMDs.Apps.launch(os.getcwd() + f'\\apps\\developmentEnviorment\\{jsonFile["main-file"]}')
 
         elif cmd.startswith('run-app '):
-            apptorun = cmd.lstrip('run-app ')
-            print(apptorun)
-            jsonPath = os.getcwd() + '\\apps\\' + apptorun + '\\app.json'
-            appInfoFile = open(jsonPath, 'r')
-            jsonFile = json.load(appInfoFile)
-            OpenPyCMDs.Apps.launch(os.getcwd() + f'\\apps\\{apptorun}\\{jsonFile["main-file"]}')
+            try:
+                console = Console()
+                apptorun = cmd.lstrip('run-app ')
+                print(apptorun)
+                jsonPath = os.getcwd() + '\\apps\\' + apptorun + '\\app.json'
+                appInfoFile = open(jsonPath, 'r')
+                jsonFile = json.load(appInfoFile)
+                OpenPyCMDs.Apps.launch(os.getcwd() + f'\\apps\\{apptorun}\\{jsonFile["main-file"]}')
+            except FileNotFoundError: 
+                console.print(f'[red]Error trying to find the application[/red]')
+                console.print(f'The app.json for {apptorun} could not be found.')
+            except:
+                console.print(f'[red]Unknown Error in handler.py[/red]')
+
 
         elif cmd == "exit" or cmd == "quit":
             quit()

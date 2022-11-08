@@ -22,19 +22,27 @@ class Directories:
 class Apps:
     def launch(app_path: str):
         console = Console()
-        with console.status('[bold purple]Reading Application Data...') as status:
-            while 1 != 2:
-                app_data = open(app_path).read()
-                console.log('[green]The Application Data has been read and the program will start soon.')
-                break
-        sleep(1)
-        exec(app_data)
+        try:
+            with console.status('[bold purple]Reading Application Data...') as status:
+                while 1 != 2:
+                    app_data = open(app_path).read()
+                    console.log('[green]The Application Data has been read and the program will start soon.')
+                    break
+            sleep(1)
+            exec(app_data)
+        except FileNotFoundError: 
+            console.print(f'[red]Error trying to find the application[/red]')
+            console.print(f'The app.json for {app_path} could not be found.')
+        except:
+            console.print(f'[red]Unknown Error in OpenPyCommands.py[/red]')
+
 
     def outputAppList():
         console = Console()
         appTable = Table(title='Installed Apps') 
         appTable.add_column('Name', justify='left', style='bold blue')
         appTable.add_column('Subtitle', style="white")
+        appTable.add_column('Launch Name', style='purple')
         appTable.add_column('Version', style='bold cyan')
         errCount = 0
         appPath = os.getcwd() + '\\apps'
@@ -47,7 +55,8 @@ class Apps:
                     appName = appJSON['name']
                     appSubtitle = appJSON['subtitle']
                     appVersion = str(appJSON['version'])
-                    appTable.add_row(appName, appSubtitle, appVersion)
+                    appLaunchName = folder
+                    appTable.add_row(appName, appSubtitle, appLaunchName, appVersion)
                 except:
                     errCount += 1
         console.print(appTable)
@@ -87,3 +96,7 @@ class Data_Collector:
         infofile = open("info.json", "r").read()
         infoJSON = json.loads(infofile)
         return infoJSON
+
+class Strings:
+    def OpenPyString():
+        return "[bold][yellow]Open[/yellow][blue]Py[/blue][/bold]"
