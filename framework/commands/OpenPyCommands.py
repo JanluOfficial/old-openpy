@@ -8,6 +8,16 @@ import os
 import json
 from rich.console import Console
 from rich.table import Table
+from rich.prompt import Prompt
+from os.path import exists
+
+class Directories:
+    def checkAndCreate():
+        paths = ['OpenPy', 'OpenPy\\user', 'OpenPy\\themes', 'OpenPy\\extensions', 'OpenPy\\languages', 'OpenPy\\user\\data']
+        appdata = os.getenv('APPDATA')
+        for path in paths:
+            if exists(f'{appdata}\\{path}'):
+                os.mkdir(f'{appdata}\\{path}')
 
 class Apps:
     def launch(app_path: str):
@@ -51,3 +61,29 @@ class Online:
         req = requests.get(raw_url)
         if req.status_code == requests.codes.ok:
             print(req)
+
+class startup:
+    def GithubKey(mode: str):
+        if mode == "startup":
+            if exists('C:\\ProgramData\\OpenPy\\user\\data\\Github_APIv3_key.json'):
+                api_key_file = open('C:\\ProgramData\\OpenPy\\Github_APIv3_key.json', 'r')
+                return json.load(api_key_file)['api-key']
+            else:
+                console = Console()
+                console.print('Please enter a usable [bold purple]Github API Key[/bold purple]')
+                newAPIkey = Prompt.ask('[bold purple]Github API Key[/bold purple]', default='skip')
+                if newAPIkey != 'skip':
+                    api_kf_w = open('C:\\ProgramData\\OpenPy\\user\\data\\Github_APIv3_key.json', 'w') # api_kf_w stands for API Key File Writable
+                    writableList = [
+                        '{\n',
+                        f'    "api-key": "{newAPIkey}"\n',
+                        '}'
+                    ]
+                    api_kf_w.writelines(writableList)
+                    return api_kf_w
+
+class Data_Collector:
+    def getStartupJSON():
+        infofile = open("info.json", "r").read()
+        infoJSON = json.loads(infofile)
+        return infoJSON

@@ -1,15 +1,23 @@
-import startup
-import os
-import framework.commands.handler as cmdhandler
-from rich.console import Console
-from rich.prompt import Prompt
-from rich.console import Group
-from rich.panel import Panel
+try:
+    import startup
+    import os
+    import framework.commands.handler as cmdhandler
+    from rich.console import Console
+    from rich.prompt import Prompt
+    from rich.console import Group
+    from rich.panel import Panel
+    import framework.commands.OpenPyCommands as OpenPyCMDs
+except: print("OpenPy has failed to import one or more Modules. Please make sure all Modules are installed before running OpenPy Again.")
+
+if os.name != 'nt':
+    console = Console()
+    console.print('OpenPy is currently [red]NOT[/red] supported on your Operating System.')
+    console.print('If you are using a [bold red]Mac[/bold red] or [green]Linux[green], please set up a virtual machine running [bold blue]Windows[/bold blue] using something like [bold red]Oracle[/bold red] [bold blue]Virtual Box[/bold blue] or [yellow]VMware Workstation[/yellow]')
 
 try:
-    startJSON = startup.Data_Collector.getStartupJSON()
-    startup.StartUp.ProgramDataFolder()
-    github_API_key = startup.StartUp.GithubKey('startup')
+    startJSON = OpenPyCMDs.Data_Collector.getStartupJSON()
+    OpenPyCMDs.Directories.checkAndCreate()
+    github_API_key = OpenPyCMDs.startup.GithubKey('startup')
         
     version = startJSON['version']
     branch = startJSON['branch-name']
