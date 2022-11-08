@@ -1,8 +1,0 @@
-{
-    "name": "OOBE",
-    "subtitle": "Out-of-box Experience for OpenPy",
-    "version": 1.0,
-    "description": "Idk what I'm supposed to put here tbh... What AM i actually supposed to put here?",
-    "main-file": "OOBE.py",
-    "app-type": "openpy"
-}

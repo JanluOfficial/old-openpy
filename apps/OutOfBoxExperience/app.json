@@ -1,0 +1,8 @@
+{
+    "name": "OpenPy OOBE",
+    "subtitle": "First Time Run Setup",
+    "version": 1.0,
+    "description": "OpenPy Setup",
+    "main-file": "OOBE.py",
+    "app-type": "openpy"
+}
