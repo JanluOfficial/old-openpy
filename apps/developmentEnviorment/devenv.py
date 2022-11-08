@@ -1,4 +1,3 @@
-import rich
 import os
 from rich.console import Console
 import framework.console as con
@@ -7,7 +6,6 @@ from rich.prompt import Prompt
 from time import sleep
 from rich.console import Group
 from rich.panel import Panel
-from rich.progress import Progress
 from rich.progress import track
 import subprocess
 
@@ -25,6 +23,7 @@ if value == "1":
     console.print(f'[bold][yellow]Open[/yellow][blue]Py[/blue][/bold] [dim]Development Enviorment[/dim]')
     print()
     name = Prompt.ask("Project Name", default="My App")
+    subtitle = Prompt.ask("Subtitle", default="Created with OpenPy")
     description = Prompt.ask("Description", default="A beautiful App made with OpenPy")
     file_name = Prompt.ask("Main File Name", default=f"{name}.py")
     if not file_name.endswith('.py'):
@@ -33,9 +32,9 @@ if value == "1":
     con.clear()
     console.print(f'[bold][yellow]Open[/yellow][blue]Py[/blue][/bold] [dim]Development Enviorment[/dim]')
     panel_group = Group(
-    Panel(f"App Name:       {name}"),
-    Panel(f"Description:    {description}"),
-    Panel(f'Main File Name: {file_name}')
+    console.print(f"App Name:       {name}"),
+    console.print(f"Description:    {description}"),
+    console.print(f'Main File Name: {file_name}')
     )
     console.print(Panel(panel_group))
     confirmation = Prompt.ask("Confirm?", default="N", choices=['Y', 'N'])
@@ -62,6 +61,7 @@ if value == "1":
             jsonFile = [
                 '{\n'
                 f'    "name": "{name}",\n',
+                f'    "subtitle": "{subtitle}",\n',
                 f'    "version": 1.0,\n',
                 f'    "description": "{description}",\n',
                 f'    "main-file": "{file_name}",\n',

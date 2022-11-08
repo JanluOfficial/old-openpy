@@ -1,17 +1,19 @@
 import startup
 import os
-import framework.apps.getApps as getApps
 import framework.commands.handler as cmdhandler
 from rich.console import Console
 from rich.prompt import Prompt
+from rich.console import Group
+from rich.panel import Panel
 
 try:
     startJSON = startup.Data_Collector.getStartupJSON()
-    print("OpenPy")
-    console = Console()
+    startup.StartUp.ProgramDataFolder()
+    github_API_key = startup.StartUp.GithubKey('startup')
+        
     version = startJSON['version']
     branch = startJSON['branch-name']
-    
+    console = Console()
     console.print(f'OpenPy {version}', justify='center', style='white reverse')
     if branch == "stable":
         console.print(branch, style='cyan reverse', justify='center')
@@ -22,10 +24,15 @@ try:
     else:
         console.print(branch, style='purple', justify='center')
     while 1 != 2:
-        cmdhandler.handle.command(Prompt.ask('[cyan]Open[/cyan][bold magenta]Py[/bold magenta]> '))
+        cmdprompt = Prompt.ask('[cyan]Open[/cyan][bold magenta]Py[/bold magenta]> ')
+        cmdhandler.handle.command(cmdprompt, github_API_key)
 
 except KeyboardInterrupt:
     print()
-    console.print('[red]Force Quitting OpenPy[/red] via [bold blue]KeyboardInterrupt[bold blue]')
-    print()
+    from rich.console import Console
+    from rich.console import Group
+    from rich.panel import Panel
+    console = Console()
+    console.print("[red]Exception:[/red] KeyboardInterrupt"),
+    console.print("You have [green]succesfully[/green] force quit [bold][yellow]Open[/yellow][blue]Py[/blue][/bold]. Thank you for using it.")
     quit()
