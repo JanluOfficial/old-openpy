@@ -16,7 +16,7 @@ class Directories:
         paths = ['OpenPy', 'OpenPy\\user', 'OpenPy\\themes', 'OpenPy\\extensions', 'OpenPy\\languages', 'OpenPy\\user\\data']
         appdata = os.getenv('APPDATA')
         for path in paths:
-            if exists(f'{appdata}\\{path}'):
+            if not exists(f'{appdata}\\{path}'):
                 os.mkdir(f'{appdata}\\{path}')
 
 class Apps:
