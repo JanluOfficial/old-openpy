@@ -1,0 +1,39 @@
+{
+    "name": "Default",
+    "subtitle": "The default theme for OpenPy",
+    "Accent": {
+        "1": "blue",
+        "2": "purple"
+    },
+    "OpenPy":{
+        "title": "black on white",
+        "1": "bold yellow",
+        "2": "bold blue"
+    },
+    "tags": {
+        "stable": "white on blue",
+        "beta": "white on purple",
+        "alpha": "white on red",
+        "unknown": "white on dark_orange3",
+        "debug": "green on black"
+    },
+    "appList": {
+        "name": "bold blue",
+        "subtitle": "white",
+        "launchName": "purple",
+        "version": "bold cyan",
+        "appType": "green"
+    },
+    "indicators": {
+        "error": "red",
+        "warning": "yellow",
+        "success": "green",
+        "waiting": "blue"
+    },
+    "devEnv": {
+        "VS-Code": "bold blue",
+        "number": "cyan",
+        "option": "bold white",
+        "description": "dim"
+    }
+}

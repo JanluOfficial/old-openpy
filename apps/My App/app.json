@@ -1,0 +1,8 @@
+{
+    "name": "My App",
+    "subtitle": "Created with OpenPy",
+    "version": 1.0,
+    "description": "A beautiful App made with OpenPy",
+    "main-file": "My App.py",
+    "app-type": "openpy"
+}
