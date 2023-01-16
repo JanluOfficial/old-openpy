@@ -1,8 +1,0 @@
-{
-    "name": "OpenPy Development Enviorment",
-    "subtitle": "Development Tools for OpenPy",
-    "version": 1.0,
-    "description": "The OpenPy Development Enviorment helps you get started with developing using OpenPy.",
-    "main-file": "devenv.py",
-    "app-type": "openpy"
-}
