@@ -1,6 +1,7 @@
 import framework.console.input as terminal_input
 import requests
 import json
+import re
 
 from rich.progress import Progress
 from rich.tree import Tree
@@ -21,7 +22,7 @@ def terminal():
             progress.update(task1, advance=1)
             applistjson = json.loads(applist.content)
             progress.update(task1, advance=1)
-            app_info = json.loads(requests.get(applistjson["cloudrun"][cmd.lstrip("cloudrun ")]).content)
+            app_info = json.loads(requests.get(applistjson["cloudrun"][re.sub(r'^cloudrun ', '', cmd)]).content)
             progress.update(task1, advance=1)
             app_code = requests.get(app_info["file"]).content
             progress.update(task1, advance=1)
@@ -30,7 +31,7 @@ def terminal():
     elif cmd.startswith("cloudsearch "):
         with Progress() as progress:
             task1 = progress.add_task("[purple4]▄[grey100 on purple4] Gathering List [/grey100 on purple4]▀[/purple4]", total=2)
-            task2 = progress.add_task("[purple4]▄[grey100 on purple4] Processing [/grey100 on purple4]▀[/purple4]", total=1000)
+            task2 = progress.add_task("[purple4]▀[grey100 on purple4] Processing [/grey100 on purple4]▀[/purple4]", total=1000)
 
             lists = requests.get("https://raw.githubusercontent.com/JanluOfficial/opr-library/master/main.json")
             progress.update(task1, advance=1)
@@ -40,7 +41,7 @@ def terminal():
             progress.update(task1, advance=1)
             app_list_json = json.loads(app_list.content)
             progress.update(task2, advance=1)
-            searchterm = cmd.lstrip("cloudsearch ")
+            searchterm = re.sub(r'^cloudsearch ', '', cmd)
             tree = Tree("[dark_cyan]▄[grey100 on dark_cyan] Results [/grey100 on dark_cyan]▀[/dark_cyan]")
             for app in app_list_json["cloudrun"]["all-cloudrun-apps-list"]:
                 app_data = json.loads(requests.get(app_list_json["cloudrun"][app]).content)
