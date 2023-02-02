@@ -8,8 +8,6 @@ while 1 == 1:
 import json
 import re
 import os
-if os.name() == "nt":
-    import ctypes
 while 1 == 1:
     try:
         from rich.progress import Progress
@@ -17,7 +15,7 @@ while 1 == 1:
         from rich import print
         break
     except:
-        os.system("python -m pip install rich")
+        os.system("pip install rich")
 
 def terminal():
     cmd = terminal_input.input()
