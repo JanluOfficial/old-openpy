@@ -1,14 +1,28 @@
 import framework.console.input as terminal_input
-import requests
+while 1 == 1:
+    try:
+        import requests
+        break
+    except: os.system("pip install requests")
+
 import json
 import re
-
-from rich.progress import Progress
-from rich.tree import Tree
-from rich import print
+import os
+if os.name() == "nt":
+    import ctypes
+while 1 == 1:
+    try:
+        from rich.progress import Progress
+        from rich.tree import Tree
+        from rich import print
+        break
+    except:
+        os.system("python -m pip install rich")
 
 def terminal():
     cmd = terminal_input.input()
+
+    # Cloud Commands
 
     if cmd.startswith("cloudrun "):
         with Progress() as progress:
@@ -55,6 +69,7 @@ def terminal():
                 if searchterm in app_data["name"] or searchterm in app:
                     to_add_to = tree.add(app_data["name"].replace(searchterm, f'[green3]{searchterm}[/green3]'))
                     to_add_to.add(f'{app_data["description"]}')
+                    to_add_to.add("Author").add(app_data["author"])
                     to_add_to.add(app_data["file"])
                     to_add_to.add("Run Name").add(app.replace(searchterm, f'[green3]{searchterm}[/green3]'))
                 progress.update(task2, advance=(1000-2)/len(app_list_json["cloudrun"]["all-cloudrun-apps-list"]))
@@ -81,6 +96,7 @@ def terminal():
                 app_data = json.loads(requests.get(app_list_json["cloudrun"][app]).content)
                 to_add_to = tree.add(app_data["name"].replace(searchterm, f'[green3]{searchterm}[/green3]'))
                 to_add_to.add(f'{app_data["description"]}')
+                to_add_to.add("Author").add(app_data["author"])
                 to_add_to.add(app_data["file"])
                 to_add_to.add("Run Name").add(app.replace(searchterm, f'[green3]{searchterm}[/green3]'))
                 progress.update(task2, advance=(1000-2)/len(app_list_json["cloudrun"]["all-cloudrun-apps-list"]))
