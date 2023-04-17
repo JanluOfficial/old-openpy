@@ -1,6 +1,6 @@
 # OpenPy dependencies
 import framework.terminal as terminal
-from framework.initialize import init
+from framework.console.initialize import init
 
 # Initialize
 init()
