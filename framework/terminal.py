@@ -5,6 +5,8 @@ import os
 import logging
 import subprocess
 import tkinter as tk
+import time
+import shutil
 while 1 == 1:
     try:
         import requests
@@ -106,7 +108,7 @@ def terminal():
                 progress.update(task2, advance=(1000-2)/len(app_list_json["cloudrun"]["all-cloudrun-apps-list"]))
             print(tree)
 
-    # Install Commands
+    # Local Commands
 
     elif cmd[0] == "install":
         app = cmd[1]
@@ -135,17 +137,68 @@ def terminal():
                 interpret.interp(app, oii)
                 break
     
+    elif cmd[0] == "downloadlist":
+        with Progress() as progress:
+            task1 = progress.add_task("[purple4]▄[grey100 on purple4] Gathering List [/grey100 on purple4]▀[/purple4]", total=2)
+            task2 = progress.add_task("[purple4]▀[grey100 on purple4] Processing [/grey100 on purple4]▀[/purple4]", total=1000)
+
+            lists = requests.get("https://raw.githubusercontent.com/JanluOfficial/opr-library/master/main.json")
+            progress.update(task1, advance=1)
+            list_json = json.loads(lists.content)
+            progress.update(task2, advance=1)
+            app_list = requests.get(list_json["applisturl"])
+            progress.update(task1, advance=1)
+            app_list_json = json.loads(app_list.content)
+            progress.update(task2, advance=1)
+            tree = Tree("[dark_cyan]▄[grey100 on dark_cyan] Results [/grey100 on dark_cyan]▀[/dark_cyan]")
+
+            for app in app_list_json["downloadable"]["all-downloadable-apps-list"]:
+                app_data = json.loads(requests.get(app_list_json["downloadable"][app]).content)
+                to_add_to = tree.add(app_data["name"])
+                to_add_to.add(f'{app_data["description"]}')
+                to_add_to.add("Author").add(app_data["author"])
+                to_add_to.add(app_data["oii-script"])
+                to_add_to.add("Run Name").add(app)
+                progress.update(task2, advance=(1000-2)/len(app_list_json["cloudrun"]["all-cloudrun-apps-list"]))
+            print(tree)
+
     elif cmd[0] == "run":
+        try:
+            app = cmd[1]
+            app_path = path.get.downloaded_apps_path() + f'/{app}'
+            app_info_list = json.loads(open(app_path + f'/{app}.json', 'r').read())
+            with Progress() as progress:
+                task1 = progress.add_task("[purple4]▄[grey100 on purple4] Running App [/grey100 on purple4]▀[/purple4]", total=2)
+
+                progress.update(task1, advance=1)
+                app_file = app_info_list["file"]
+                progress.update(task1, advance=1)
+
+            if app_info_list["run-as"] == "openpy": 
+                exec(open(f"{app_path}/{app_file}", "r").read())
+            else: subprocess.run(f'python {app_path}/{app_file}')
+        except FileNotFoundError:
+            print("[red3]▄[grey100 on red3] Error [/grey100 on red3]▀[/red3] Application has not been found!\nPlease make sure that it is installed.\n")
+        
+    elif cmd[0] == "uninstall":
         app = cmd[1]
         app_path = path.get.downloaded_apps_path() + f'/{app}'
-        with Progress() as progress:
-            task1 = progress.add_task("[purple4]▄[grey100 on purple4] Running App [/grey100 on purple4]▀[/purple4]", total=2)
+        if os.path.exists(f"{app_path}/{app}.json"):
+            with Progress() as progress:
+                task1 = progress.add_task("[purple4]▄[grey100 on purple4] Uninstalling App [/grey100 on purple4]▀[/purple4]", total=1)
 
-            app_info_list = json.loads(open(app_path + f'/{app}.json', 'r').read())
-            progress.update(task1, advance=1)
-            app_file = app_info_list["file"]
-            progress.update(task1, advance=1)
-        
-        if app_info_list["run-as"] == "openpy": 
-            exec(open(f"{app_path}/{app_file}", "r").read())
-        else: subprocess.run(f'python {app_path}/{app_file}')
+                shutil.rmtree(app_path, ignore_errors=False, onerror=None)
+                progress.update(task1, advance=1)
+   
+                    
+        else:
+            print(f"[red3]▄[grey100 on red3] Error [/grey100 on red3]▀[/red3] Application is not installed.\nUnable to find {app_path}/{app}/{app}.json.")
+
+            
+    elif cmd[0] == "oiii":
+        try:
+            while 1:
+                print("oii")
+                time.sleep(0.25)
+        except KeyboardInterrupt:
+            otk = 0
