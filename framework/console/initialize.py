@@ -30,22 +30,7 @@ def init():
         print(random.choice(funny_error_list))
 
     openpy_path = str(os.path.dirname(os.path.realpath(__file__))).replace("\\", "/").removesuffix("/framework/console")
-
-    if not os.path.exists(openpy_path + "/settings/home.txt") or open(openpy_path + "/settings/home.txt", "r").read() == "":
-        home_txt = open(openpy_path + "/settings/home.txt", "w")
-        while 1 == 1:
-            path = console.input("[dark_cyan]▄[/dark_cyan][grey100 on dark_cyan] Input a Path for OpenPy [/grey100 on dark_cyan][dark_cyan]▀[/dark_cyan] ")
-            if os.path.exists(path):
-                home_txt.write(path)
-                break
-            else:
-                try:
-                    os.mkdir(path)
-                    home_txt.write(path)
-                    break
-                except: 
-                    print("[red3]Error![/red3] Path couldn't be found or created. Please enter another path.")
-                    
+             
     # This part will create and check if all folders in the OpenPy Home Directory are present. If not, they will be created.
     openpy_home_path = opath.get.openpy_path()
     try:

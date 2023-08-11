@@ -4,7 +4,7 @@ import framework.text.path as path
 import os
 import logging
 import subprocess
-import tkinter as tk
+#import tkinter as tk
 import time
 import shutil
 while 1 == 1:

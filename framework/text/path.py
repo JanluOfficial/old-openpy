@@ -1,10 +1,8 @@
 import os
 
 class get:
-    def openpy_path():
-        openpy_path = os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").removesuffix("/framework/text")
-        return open(openpy_path + "/settings/home.txt", "r").read()
+    def openpy_path(): return os.path.expanduser('~/OpenPy-Files').replace("\\", "/")
 
-    def downloaded_apps_path():
-        openpy_path = os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").removesuffix("/framework/text")
-        return open(openpy_path + "/settings/home.txt", "r").read() + "/apps/downloaded"
+    def downloaded_apps_path(): return os.path.expanduser('~/OpenPy-Files/apps/downloaded').replace("\\", "/")
+    
+    def config_path(): return os.path.expanduser('~/OpenPy-Files/configs').replace("\\", "/")

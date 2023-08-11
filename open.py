@@ -5,5 +5,4 @@ from framework.console.initialize import init
 # Initialize
 init()
 
-while 1 != 2:
-    terminal.terminal()
+while 1 != 2: terminal.terminal()
