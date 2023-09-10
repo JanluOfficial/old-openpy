@@ -1,12 +1,15 @@
 import framework.console.input as terminal_input
 import framework.oii.interpret as interpret
 import framework.text.path as path
+from rich import print
+from rich.table import Table
 import os
 import logging
 import subprocess
 #import tkinter as tk
-import time
 import shutil
+import api.terminal as termapi
+
 while 1 == 1:
     try:
         import requests
@@ -24,15 +27,50 @@ while 1 == 1:
     except:
         os.system("python -m pip install rich")
 
+
+
 def terminal():
-    cmd = terminal_input.input().split()
+    cmdstr = terminal_input.input()
+    if cmdstr == None: return None
+    else: cmd = cmdstr.split()
+
     cmd.append("rando-key1")
     cmd.append("rando-key2")
     cmd.append("rando-key3")
 
+    # General Commands
+
+    if cmd[0] == "help":
+        table = Table()
+        table.add_column("Command")
+        table.add_column("Description")
+        table.add_row("help", "Print this help")
+        table.add_row("clear", "Clear the screen")
+        table.add_row("exit", "Exit the program")
+        table.add_row("version", "Print the version of OpenPy")
+        table.add_row("")
+        table.add_row("run", "Run a local app")
+        table.add_row("search", "Search for a local app")
+        table.add_row("list", "List all local apps")
+        table.add_row("")
+        table.add_row("cloudrun", "Run a cloudrun app")
+        table.add_row("cloudsearch", "Search for a cloudrun app")
+        table.add_row("cloudsearch", "List all cloudrun apps")
+
+        print(table)
+
+    elif cmd[0] == "version":
+        print("OpenPy v1.0.0")
+
+    elif cmd[0] == "clear" or cmd[0] == "cls":
+        termapi.clear()
+
+    elif cmd[0] == "exit" or cmd[0] == "quit" or cmd[0] == "bye":
+        quit()
+
     # Cloud Commands
 
-    if cmd[0] == "cloudrun":
+    elif cmd[0] == "cloudrun":
         with Progress() as progress:
             try:
                 task1 = progress.add_task("[purple4]▄[grey100 on purple4] Start [/grey100 on purple4]▀[/purple4]", total=6)
@@ -50,7 +88,7 @@ def terminal():
                 app_code = requests.get(app_info["file"]).content
                 progress.update(task1, advance=1)
             except KeyError:
-                print("[red3]Error![/red3] This cloudrun app might not exist.")
+                print("[red3]Error![/red3] This cloudrun app does not exist.")
         try:
             exec(app_code)
         except UnboundLocalError: otk = 0
@@ -194,11 +232,8 @@ def terminal():
         else:
             print(f"[red3]▄[grey100 on red3] Error [/grey100 on red3]▀[/red3] Application is not installed.\nUnable to find {app_path}/{app}/{app}.json.")
 
-            
-    elif cmd[0] == "oiii":
-        try:
-            while 1:
-                print("oii")
-                time.sleep(0.25)
-        except KeyboardInterrupt:
-            otk = 0
+    else:
+        print(f"[red3]▄[grey100 on red3] Error [/grey100 on red3]▀[/red3] Command not found!\nPlease use the help command to see a list of available commands.\n")
+
+if __name__ == "__main__":
+    print("[red3]▄[grey100 on red3] Error [/grey100 on red3]▀[/red3] Please run the main open.py file to start OpenPy.\n")

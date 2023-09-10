@@ -20,7 +20,7 @@ def init():
         lists = requests.get("https://raw.githubusercontent.com/JanluOfficial/opr-library/master/main.json")
         listjson = json.loads(lists.content)
         quotes = requests.get(listjson["quoteslisturl"])
-        welcome_panel = Panel(random.choice(quotes.text.split("\n")), border_style="gray100", title="OpenPy")
+        welcome_panel = Panel("OpenPy allows developers to utilize OpenPy's API's \nand Features to create beautiful and powerful Applications!\n\nThis project and the documentation is W.I.P.", border_style="gray100", title="OpenPy", subtitle=random.choice(quotes.text.split("\n")))
         print(welcome_panel)
     except KeyboardInterrupt:
         interrupt_list = ["Someone seems to have interrupted something", "Dude, why'd you interrupt me?", 'What you just did is called [orange_red1]▄[/orange_red1][grey100 on orange_red1] KeyboardInterrupt [/grey100 on orange_red1][orange_red1]▀[/orange_red1]']
