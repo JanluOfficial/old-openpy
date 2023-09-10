@@ -17,7 +17,6 @@ while 1 == 1:
     except: os.system("python -m pip install requests")
 
 import json
-import re
 while 1 == 1:
     try:
         from rich.progress import Progress
@@ -30,8 +29,8 @@ while 1 == 1:
 
 
 def terminal():
-    cmdstr = terminal_input.input()
-    if cmdstr == None: return None
+    cmdstr = terminal_input.input().lstrip(" ").rstrip(" ")
+    if cmdstr == None or cmdstr.replace(" ", "") == "": return None
     else: cmd = cmdstr.split()
 
     cmd.append("rando-key1")

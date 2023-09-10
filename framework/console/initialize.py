@@ -3,7 +3,6 @@ import json
 import random
 import os
 import time
-import re
 
 import framework.text.path as opath
 

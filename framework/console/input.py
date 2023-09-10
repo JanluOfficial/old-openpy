@@ -1,5 +1,4 @@
 import os
-import platform
 import api.system as sysapi
 
 # Rich
