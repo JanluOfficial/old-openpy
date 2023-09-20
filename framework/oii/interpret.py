@@ -23,6 +23,8 @@ def interp(app_name: str, script: list):
                 elif code[1] == "empty": make.make_empty(code[2]) 
                 elif code[1] == "dir": make.make_dir(code[2])
 
+            # Planned Prompt Feature
+
             #elif code[0] == "prompt":
             #    question = ""
             #    for item in range(3,len(code)):

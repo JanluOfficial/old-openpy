@@ -36,35 +36,28 @@ def init():
         with Progress() as progress:
             task1 = progress.add_task("Checking Paths", total=5)
             while not progress.finished:
-                if not os.path.exists(openpy_home_path): 
-                    os.mkdir(openpy_home_path)
-                    progress.update(task1, advance=1)
+                if not os.path.exists(openpy_home_path): os.mkdir(openpy_home_path)
+                progress.update(task1, advance=1)
                 
-                if not os.path.exists(openpy_home_path + "/apps"): 
-                    os.mkdir(openpy_home_path + "/apps")
-                    progress.update(task1, advance=1)
-                
-                if not os.path.exists(openpy_home_path + "/themes"): 
-                    os.mkdir(openpy_home_path + "/themes")
-                    progress.update(task1, advance=1)
-                
-                if not os.path.exists(openpy_home_path): 
-                    os.mkdir(openpy_home_path + "/settings")
-                    progress.update(task1, advance=1)
+                if not os.path.exists(openpy_home_path + "/apps"): os.mkdir(openpy_home_path + "/apps")
+                progress.update(task1, advance=1)
 
-                if not os.path.exists(openpy_home_path + "/configs"):
-                    os.mkdir(openpy_home_path + "/configs")
+                if not os.path.exists(openpy_home_path + "/themes"): os.mkdir(openpy_home_path + "/themes")
+                progress.update(task1, advance=1)
                 
-                if not os.path.exists(openpy_home_path + "/apps/cloudrun"): 
-                    os.mkdir(openpy_home_path + "/apps/cloudrun")
-                    progress.update(task1, advance=1)
-                
-                if not os.path.exists(openpy_home_path + "/apps/downloaded"): 
-                    os.mkdir(openpy_home_path + "/apps/downloaded")
-                    progress.update(task1, advance=1)
+                if not os.path.exists(openpy_home_path): os.mkdir(openpy_home_path + "/settings")
+                progress.update(task1, advance=1)
 
-                while not progress.finished:
-                    progress.update(task1, advance=1)
+                if not os.path.exists(openpy_home_path + "/configs"): os.mkdir(openpy_home_path + "/configs")
+                progress.update(task1, advance=1)
+
+                if not os.path.exists(openpy_home_path + "/apps/cloudrun"): os.mkdir(openpy_home_path + "/apps/cloudrun")
+                progress.update(task1, advance=1)
+                
+                if not os.path.exists(openpy_home_path + "/apps/downloaded"): os.mkdir(openpy_home_path + "/apps/downloaded")
+                progress.update(task1, advance=1)
+
+                while not progress.finished: progress.update(task1, advance=1)
     except: 
         print("[red3]Critical Error![/red3] An error has occoured durring the Path Check. OpenPy can not continue.")
         with Progress() as progress:

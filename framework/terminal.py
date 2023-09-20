@@ -29,9 +29,9 @@ while 1 == 1:
 
 
 def terminal():
-    cmdstr = terminal_input.input().lstrip(" ").rstrip(" ")
-    if cmdstr == None or cmdstr.replace(" ", "") == "": return None
-    else: cmd = cmdstr.split()
+    cmdstr = terminal_input.input()
+    if cmdstr.repalce(" ", "") == "": return None 
+    cmd = cmdstr.split()
 
     cmd.append("rando-key1")
     cmd.append("rando-key2")
